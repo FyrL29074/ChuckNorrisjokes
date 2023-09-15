@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Chuck-Norris-jokes</string>
+    <string name="joke_not_found">SOMEONE LOST THIS JOKE</string>
 </resources>

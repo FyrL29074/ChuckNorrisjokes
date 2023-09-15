@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/jokes">
+
+    <fragment
+        android:id="@+id/jokes"
+        android:name="com.fyrl29074.chuck_norris_jokes.features.jokes.JokesFragment"
+        android:label="Jokes Screen"
+        tools:layout="@layout/fragment_jokes">
+        <action
+            android:id="@+id/navigate_jokes_to_joke"
+            app:destination="@id/joke">
+            <argument
+                android:name="joke"
+                android:defaultValue="SOMEONE LOST THIS JOKE"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/joke"
+        android:name="com.fyrl29074.chuck_norris_jokes.features.joke.JokeFragment"
+        android:label="Joke Screen"
+        tools:layout="@layout/fragment_joke">
+        <argument
+            android:name="joke"
+            android:defaultValue="SOMEONE LOST THIS JOKE"
+            app:argType="string" />
+    </fragment>
+</navigation>
