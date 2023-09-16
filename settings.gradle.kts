@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Chuck-Norris-jokes"
 include(":app")
+include(":domain")
