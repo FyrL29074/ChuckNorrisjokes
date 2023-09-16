@@ -1,6 +1,7 @@
 package com.fyrl29074.chuck_norris_jokes.presentation.base
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,21 @@ abstract class BaseFragment<B : ViewBinding> : Fragment() {
     ): View? {
         _binding = inflater(inflater, container, false)
         return binding?.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initUI()
+        initCoroutines()
+    }
+
+    protected open fun initUI() {
+        Log.d("initUI", "initUI -> ${binding.toString()}")
+    }
+
+    protected open fun initCoroutines() {
+        Log.d("initCoroutines", "initCoroutines -> ${binding.toString()}")
     }
 
     override fun onDestroy() {

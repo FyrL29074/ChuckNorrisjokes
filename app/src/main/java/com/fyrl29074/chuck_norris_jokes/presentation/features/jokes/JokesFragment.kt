@@ -2,11 +2,15 @@ package com.fyrl29074.chuck_norris_jokes.presentation.features.jokes
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.fyrl29074.chuck_norris_jokes.databinding.FragmentJokesBinding
+import com.fyrl29074.chuck_norris_jokes.presentation.State
 import com.fyrl29074.chuck_norris_jokes.presentation.base.BaseFragment
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -18,16 +22,50 @@ class JokesFragment : BaseFragment<FragmentJokesBinding>() {
 
     private val jokesAdapter = JokesAdapter { joke -> navigateToTaskScreen(joke) }
 
-    // TODO: remake with Koin
     private val viewModel: JokesViewModel by viewModel<JokesViewModel>()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycleScope.launch {
+            viewModel.getJokes()
+        }
+    }
+
+    override fun initUI() {
+        super.initUI()
 
         binding?.jokes?.adapter = jokesAdapter
+    }
 
+    override fun initCoroutines() {
+        super.initCoroutines()
         lifecycleScope.launch {
-            jokesAdapter.setData(viewModel.getJokes())
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
+                viewModel.state
+                    .collect { state ->
+                        binding?.let { binding ->
+                            when (state) {
+                                is State.Success -> {
+                                    binding.progressBar.isVisible = false
+                                    jokesAdapter.setData(state.jokesList)
+                                }
+
+                                State.Loading -> {
+                                    binding.progressBar.isVisible = true
+                                }
+
+                                State.Error -> {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Something went wrong...",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    binding.progressBar.isVisible = false
+                                }
+                            }
+                        }
+                    }
+            }
         }
     }
 
