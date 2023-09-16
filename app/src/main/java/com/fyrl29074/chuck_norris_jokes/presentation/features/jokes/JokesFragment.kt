@@ -1,5 +1,6 @@
 package com.fyrl29074.chuck_norris_jokes.presentation.features.jokes
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -23,6 +24,13 @@ class JokesFragment : BaseFragment<FragmentJokesBinding>() {
 
     private val viewModel: JokesViewModel by viewModel<JokesViewModel>()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        lifecycleScope.launch {
+            viewModel.getJokes()
+        }
+    }
+
     override fun initUI() {
         super.initUI()
 
@@ -31,31 +39,27 @@ class JokesFragment : BaseFragment<FragmentJokesBinding>() {
 
     override fun initCoroutines() {
         super.initCoroutines()
-
         lifecycleScope.launch {
-            jokesAdapter.setData(viewModel.getJokes())
-        }
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
+            repeatOnLifecycle(Lifecycle.State.CREATED) {
                 viewModel.state
                     .collect { state ->
                         binding?.let { binding ->
                             when (state) {
-                                State.Error -> {
-                                    Toast.makeText(
-                                        requireContext(),
-                                        "Something went wrong...",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                is State.Success -> {
                                     binding.progressBar.isVisible = false
+                                    jokesAdapter.setData(state.jokesList)
                                 }
 
                                 State.Loading -> {
                                     binding.progressBar.isVisible = true
                                 }
 
-                                State.Success -> {
+                                State.Error -> {
+                                    Toast.makeText(
+                                        requireContext(),
+                                        "Something went wrong...",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                     binding.progressBar.isVisible = false
                                 }
                             }
