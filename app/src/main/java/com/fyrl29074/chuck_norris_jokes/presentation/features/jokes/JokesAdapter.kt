@@ -1,11 +1,11 @@
-package com.fyrl29074.chuck_norris_jokes.features.jokes
+package com.fyrl29074.chuck_norris_jokes.presentation.features.jokes
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.fyrl29074.chuck_norris_jokes.databinding.ItemJokeBinding
-import com.fyrl29074.chuck_norris_jokes.model.JokeVO
+import com.fyrl29074.chuck_norris_jokes.presentation.model.JokeVO
 
 class JokesAdapter(
     private val onClick: (String) -> Unit

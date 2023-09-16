@@ -1,4 +1,4 @@
-package com.fyrl29074.chuck_norris_jokes.base
+package com.fyrl29074.chuck_norris_jokes.presentation.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

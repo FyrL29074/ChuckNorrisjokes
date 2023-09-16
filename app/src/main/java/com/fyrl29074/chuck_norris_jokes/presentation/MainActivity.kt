@@ -1,4 +1,4 @@
-package com.fyrl29074.chuck_norris_jokes
+package com.fyrl29074.chuck_norris_jokes.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
