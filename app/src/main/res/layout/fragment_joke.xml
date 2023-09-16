@@ -6,5 +6,5 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:textSize="36sp"
-    tools:context=".features.joke.JokeFragment"
+    tools:context=".presentation.features.joke.JokeFragment"
     tools:text="IT IS CHUCK NORRIS JOKE" />

@@ -1,11 +1,11 @@
-package com.fyrl29074.chuck_norris_jokes.features.joke
+package com.fyrl29074.chuck_norris_jokes.presentation.features.joke
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
-import com.fyrl29074.chuck_norris_jokes.base.BaseFragment
+import com.fyrl29074.chuck_norris_jokes.presentation.base.BaseFragment
 import com.fyrl29074.chuck_norris_jokes.databinding.FragmentJokeBinding
 
 class JokeFragment : BaseFragment<FragmentJokeBinding>() {
